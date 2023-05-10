@@ -9,6 +9,7 @@ import {
   UsePipes,
   ValidationPipe,
   Patch,
+  Query,
 } from '@nestjs/common';
 import { User } from './users.entity';
 import { UsersService } from './users.service';
@@ -27,6 +28,14 @@ export class UsersController {
   async GetOne(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.usersService.getOneById(id);
   }
+  
+  @Get(':name/:id')
+  findByLikeName(
+    @Query() query: { name: string },
+    @Param() param: { id: number }
+  ) {
+        return this.usersService.findStockezById({...query, ...param});
+    }
 
   @Post()
   async create(@Body() user: UsersDTO): Promise<User> {
