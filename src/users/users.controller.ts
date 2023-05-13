@@ -10,6 +10,7 @@ import {
   ValidationPipe,
   Patch,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { User } from './users.entity';
 import { UsersService } from './users.service';
@@ -29,6 +30,14 @@ export class UsersController {
   @Get(':id')
   async GetOne(@Param('id', ParseIntPipe) id: number): Promise<UsersDTO> {
     return this.usersService.getOneById(id);
+  }
+
+  @Get(':name/:id')
+  findByLikeName(
+    @Query() query: { name: string },
+    @Param() param: { id: number },
+  ) {
+    return this.usersService.findStockezById({ ...query, ...param });
   }
 
   @Post()

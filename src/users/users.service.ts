@@ -29,6 +29,24 @@ export class UsersService {
       },
     });
   }
+  
+   async findStockezById({
+    
+    name,
+	id,
+  }: {
+     name: string;
+    id: number;
+	
+   
+  }): Promise<User[]> {
+    return await this.usersRepository.find({
+      where: {
+       
+        sto_id: id,
+      },
+    });
+  }
 
   async getOneByUsername(username: string) {
     return await this.usersRepository.findOne({

@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { PointsModule } from './points/points.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { SetPowerModule } from './set-power/set-power.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     PointsModule,
     AuthModule,
+    SetPowerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
