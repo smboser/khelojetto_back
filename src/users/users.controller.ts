@@ -9,22 +9,25 @@ import {
   UsePipes,
   ValidationPipe,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 import { UsersDTO } from './users.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async GetAll(): Promise<User[]> {
     return this.usersService.getAll();
   }
 
   @Get(':id')
-  async GetOne(@Param('id', ParseIntPipe) id: number): Promise<User> {
+  async GetOne(@Param('id', ParseIntPipe) id: number): Promise<UsersDTO> {
     return this.usersService.getOneById(id);
   }
 

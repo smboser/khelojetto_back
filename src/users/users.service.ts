@@ -30,6 +30,14 @@ export class UsersService {
     });
   }
 
+  async getOneByUsername(username: string) {
+    return await this.usersRepository.findOne({
+      where: {
+        username: username,
+      },
+    });
+  }
+
   async read(id: number) {
     return await this.usersRepository.findOne({ where: { user_id: id } });
   }
