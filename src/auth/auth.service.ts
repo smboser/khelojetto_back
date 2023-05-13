@@ -17,6 +17,8 @@ export class AuthService {
 
     const payload = {
       username: user.username,
+      name: user.name,
+      user_type: user.usertype,
     };
 
     return {
@@ -25,9 +27,9 @@ export class AuthService {
   }
 
   async validateUser(authLoginDto: AuthLoginDto): Promise<User> {
-    const { username, password } = authLoginDto;
+    const { email, password } = authLoginDto;
 
-    const user = await this.usersService.getOneByUsername(username);
+    const user = await this.usersService.getOneByEmail(email);
     if (!(await user?.validatePassword(password))) {
       throw new UnauthorizedException();
     }

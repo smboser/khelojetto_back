@@ -29,29 +29,25 @@ export class UsersService {
       },
     });
   }
-  
-   async findStockezById({
-    
+
+  async findStockezById({
     name,
-	id,
+    id,
   }: {
-     name: string;
+    name: string;
     id: number;
-	
-   
   }): Promise<User[]> {
     return await this.usersRepository.find({
       where: {
-       
         sto_id: id,
       },
     });
   }
 
-  async getOneByUsername(username: string) {
+  async getOneByEmail(email: string) {
     return await this.usersRepository.findOne({
       where: {
-        username: username,
+        email: email,
       },
     });
   }
