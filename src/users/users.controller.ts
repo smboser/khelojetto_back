@@ -46,6 +46,7 @@ export class UsersController {
     return this.usersService.findStockezById({ ...query, ...param });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('add')
   async create(@Body() user: UsersDTO): Promise<User> {
     console.log('user', user);
