@@ -18,7 +18,7 @@ export class UsersService {
 
   async create(data: UsersDTO) {
     const user = this.usersRepository.create(data);
-    await this.usersRepository.save(data);
+    await this.usersRepository.save(user);
     return user;
   }
 
@@ -48,6 +48,14 @@ export class UsersService {
     return await this.usersRepository.findOne({
       where: {
         email: email,
+      },
+    });
+  }
+
+  async getAllByType(typeId: number) {
+    return await this.usersRepository.find({
+      where: {
+        usertype: typeId,
       },
     });
   }

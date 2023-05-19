@@ -16,7 +16,7 @@ import { AuthController } from './auth.controller';
       imports: [ConfigModule],
       useFactory: async () => ({
         secret: process.env.JWT_SECRET,
-        signOptions: { expiresIn: '30s' },
+        signOptions: { expiresIn: '3000s' },
       }),
       inject: [ConfigService],
     }),
