@@ -83,7 +83,8 @@ export class UsersService {
   }
 
   async delete(user_id: number) {
-    await this.usersRepository.delete({ user_id });
-    return { deleted: true };
+    const res = await this.usersRepository.delete({ user_id });
+    if (res.affected && res.affected > 0) return { deleted: true };
+    return { deleted: false };
   }
 }
