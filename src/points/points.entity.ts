@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
 
 @Entity({ name: 'transfer_balance' })
-export class User {
+export class Point {
   @PrimaryGeneratedColumn()
   id: number;
 
