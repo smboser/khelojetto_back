@@ -21,6 +21,7 @@ export class User {
 
   @BeforeInsert()
   async hashPassword() {
+    console.log('at beforeInsert');
     this.password = await bcrypt.hash(this.password, 8);
   }
 
@@ -30,6 +31,7 @@ export class User {
 
   @Column({
     nullable: true,
+    unique: true,
   })
   email: string;
 
@@ -38,7 +40,7 @@ export class User {
   })
   mobile: string;
 
-  @Column()
+  @Column({ nullable: false })
   usertype: number;
 
   @Column({
@@ -47,7 +49,7 @@ export class User {
   })
   added_on: string;
 
-  @Column()
+  @Column({ nullable: false, default: 1 })
   user_status: number;
 
   @Column({

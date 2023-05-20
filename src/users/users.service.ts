@@ -1,7 +1,7 @@
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
+import * as bcrypt from 'bcryptjs';
 import { User } from './users.entity';
 import { UsersDTO } from './users.dto';
 
@@ -18,7 +18,7 @@ export class UsersService {
 
   async create(data: UsersDTO) {
     const user = this.usersRepository.create(data);
-    await this.usersRepository.save(data);
+    await this.usersRepository.save(user);
     return user;
   }
 
@@ -27,6 +27,15 @@ export class UsersService {
       where: {
         user_id: id,
       },
+      select: [
+        'user_id',
+        'username',
+        'name',
+        'email',
+        'mobile',
+        'usertype',
+        'user_status',
+      ],
     });
   }
 
@@ -52,11 +61,23 @@ export class UsersService {
     });
   }
 
+  async getAllByType(typeId: number) {
+    return await this.usersRepository.find({
+      where: {
+        usertype: typeId,
+      },
+    });
+  }
+
   async read(id: number) {
     return await this.usersRepository.findOne({ where: { user_id: id } });
   }
 
   async update(user_id: number, data: Partial<UsersDTO>) {
+    if (data.password && data.password !== '')
+      data.password = await bcrypt.hash(data.password, 8);
+    if (data.confirmPassword || data.confirmPassword === '')
+      delete data.confirmPassword;
     await this.usersRepository.update({ user_id }, data);
     return await this.usersRepository.findOne({ where: { user_id: user_id } });
   }

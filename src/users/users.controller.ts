@@ -32,6 +32,12 @@ export class UsersController {
     return this.usersService.getOneById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('type/:id')
+  async GetAllbyType(@Param('id', ParseIntPipe) id: number): Promise<User[]> {
+    return this.usersService.getAllByType(id);
+  }
+
   @Get(':name/:id')
   findByLikeName(
     @Query() query: { name: string },
@@ -40,8 +46,10 @@ export class UsersController {
     return this.usersService.findStockezById({ ...query, ...param });
   }
 
-  @Post()
+  @UseGuards(JwtAuthGuard)
+  @Post('add')
   async create(@Body() user: UsersDTO): Promise<User> {
+    console.log('user', user);
     return this.usersService.create(user);
   }
 

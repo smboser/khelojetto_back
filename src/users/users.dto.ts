@@ -5,6 +5,7 @@ export interface UsersDTO {
   email: string;
   mobile: string;
   password: string;
+  confirmPassword?: string;
   usertype: number;
   added_on: string;
   user_status: number;
