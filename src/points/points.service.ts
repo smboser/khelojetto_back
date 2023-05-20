@@ -7,18 +7,15 @@ import { PointsDTO } from './points.dto';
 
 @Injectable()
 export class PointsService {
-
-constructor(
+  constructor(
     @InjectRepository(Point)
     private pointsRepository: Repository<Point>,
   ) {}
 
   async getAll() {
-  console.log("fsdfsdfsfsf="+await this.pointsRepository.find());
     return await this.pointsRepository.find();
-	 
-	 
-	  // return pointsArr;
+
+    // return pointsArr;
   }
 
   async create(data: PointsDTO) {
@@ -70,5 +67,4 @@ constructor(
     await this.pointsRepository.delete({ id });
     return { deleted: true };
   }
-
 }

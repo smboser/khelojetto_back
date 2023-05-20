@@ -7,7 +7,7 @@ import { SetPowerDTO } from './set-power.dto';
 
 @Injectable()
 export class SetPowerService {
- constructor(
+  constructor(
     @InjectRepository(SetPower)
     private setpowerRepository: Repository<SetPower>,
   ) {}
@@ -43,5 +43,4 @@ export class SetPowerService {
     await this.setpowerRepository.delete({ id });
     return { deleted: true };
   }
-
 }

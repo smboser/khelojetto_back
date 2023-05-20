@@ -10,7 +10,6 @@ import {
   ValidationPipe,
   Patch,
   UseGuards,
-  Query,
 } from '@nestjs/common';
 import { Point } from './points.entity';
 import { PointsService } from './points.service';
@@ -18,8 +17,7 @@ import { PointsDTO } from './points.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @Controller('points')
 export class PointsController {
-
-constructor(private pointsService: PointsService) {}
+  constructor(private pointsService: PointsService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -58,9 +56,4 @@ constructor(private pointsService: PointsService) {}
   async delete(@Param('id') id: number): Promise<{ deleted: boolean }> {
     return this.pointsService.delete(id);
   }
-
-
-
-
-
 }

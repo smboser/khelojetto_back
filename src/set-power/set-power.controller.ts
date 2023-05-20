@@ -16,8 +16,8 @@ import { SetPowerDTO } from './set-power.dto';
 
 @Controller('set-power')
 export class SetPowerController {
-constructor(private setPowerService: SetPowerService) {}
-@Get()
+  constructor(private setPowerService: SetPowerService) {}
+  @Get()
   async GetAll(): Promise<SetPower[]> {
     return this.setPowerService.getAll();
   }
@@ -45,6 +45,4 @@ constructor(private setPowerService: SetPowerService) {}
   async delete(@Param('id') id: number): Promise<{ deleted: boolean }> {
     return this.setPowerService.delete(id);
   }
-
-
 }

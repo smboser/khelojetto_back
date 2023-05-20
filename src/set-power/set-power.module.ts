@@ -7,6 +7,6 @@ import { SetPower } from './set-power.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([SetPower])],
   controllers: [SetPowerController],
-  providers: [SetPowerService]
+  providers: [SetPowerService],
 })
 export class SetPowerModule {}
