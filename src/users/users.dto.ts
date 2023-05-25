@@ -12,6 +12,8 @@ export interface UsersDTO {
   transaction_password: string;
   type: string;
   revenue: string;
+  update_player_revenue: number;
+  update_agents_revenue: number;
   l_request: number;
   joker_a: number;
   tripple_a: number;

@@ -35,6 +35,18 @@ export class UsersService {
         'mobile',
         'usertype',
         'user_status',
+		'revenue',
+		'type',
+		'joker_a',
+		'tripple_a',
+		'single_a',
+		'double_a',
+		'joker_p',
+		'tripple_p',
+		'single_p',
+		'double_p',
+		'update_player_revenue',
+		'update_agents_revenue'
       ],
     });
   }
