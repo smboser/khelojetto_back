@@ -65,6 +65,11 @@ export class User {
     nullable: true,
   })
   revenue: string;
+  
+  @Column({ nullable: false, default: 0 })
+  update_agents_revenue: number;
+  @Column({ nullable: false, default: 0 })
+  update_player_revenue: number;
 
   @Column()
   l_request: number;
