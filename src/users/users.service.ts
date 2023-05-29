@@ -37,6 +37,8 @@ export class UsersService {
         'user_status',
 		'revenue',
 		'type',
+        'sto_id',
+		'ag_id',
 		'joker_a',
 		'tripple_a',
 		'single_a',
@@ -61,6 +63,15 @@ export class UsersService {
     return await this.usersRepository.find({
       where: {
         sto_id: id,
+      },
+    });
+  }
+  
+  async GetAgentbyStokesId(stokesId: number) {
+    return await this.usersRepository.find({
+      where: {
+        sto_id: stokesId,
+		usertype:2
       },
     });
   }
