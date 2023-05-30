@@ -38,12 +38,12 @@ export class UsersController {
     return this.usersService.getAllByType(id);
   }
 
-  @Get(':name/:id')
-  findByLikeName(
-    @Query() query: { name: string },
-    @Param() param: { id: number },
-  ) {
-    return this.usersService.findStockezById({ ...query, ...param });
+  @UseGuards(JwtAuthGuard)
+  @Get('stokes/:id')
+  async GetAgentbyStokesId(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<User[]> {
+    return this.usersService.GetAgentbyStokesId(id);
   }
 
   @UseGuards(JwtAuthGuard)
