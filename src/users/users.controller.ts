@@ -37,18 +37,19 @@ export class UsersController {
   async GetAllbyType(@Param('id', ParseIntPipe) id: number): Promise<User[]> {
     return this.usersService.getAllByType(id);
   }
-  
+
   @UseGuards(JwtAuthGuard)
   @Get('stokes/:id')
-  async GetAgentbyStokesId(@Param('id', ParseIntPipe) id: number): Promise<User[]> {
+  async GetAgentbyStokesId(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<User[]> {
     return this.usersService.GetAgentbyStokesId(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('add')
   async create(@Body() user: UsersDTO): Promise<User> {
-    return this.usersService.create(user);3
-	
+    return this.usersService.create(user);
   }
 
   @Patch(':id')
