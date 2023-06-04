@@ -37,8 +37,8 @@ export class PointsController {
   ) {
     return this.usersService.findStockezById({ ...query, ...param });
   } */
-
-  @Post()
+  @UseGuards(JwtAuthGuard)
+  @Post('add')
   async create(@Body() point: PointsDTO): Promise<Point> {
     return this.pointsService.create(point);
   }

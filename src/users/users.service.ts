@@ -49,6 +49,18 @@ export class UsersService {
 		'double_p',
 		'update_player_revenue',
 		'update_agents_revenue'
+		
+      ],
+    });
+  }
+  
+  async getBalanceById(id: number): Promise<UsersDTO> {
+    return await this.usersRepository.findOne({
+      where: {
+        user_id: id,
+      },
+      select: [
+        'balance'
       ],
     });
   }
