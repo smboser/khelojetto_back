@@ -5,13 +5,14 @@ import { Repository } from 'typeorm';
 import { Point } from './points.entity';
 import { PointsDTO } from './points.dto';
 import { User } from '../users/users.entity';
-import { UsersDTO } from '../users/users.dto';
+//import { UsersDTO } from '../users/users.dto';
 
 @Injectable()
 export class PointsService {
   constructor(
     @InjectRepository(Point)
     private pointsRepository: Repository<Point>,
+    @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
 
@@ -30,7 +31,7 @@ export class PointsService {
       .set({
         balance: () => 'balance + data.amount',
       })
-      .where('id = :id', { id: data.to_id })
+      .where('user_id = :user_id', { user_id: data.to_id })
       .execute();
     return point;
   }
