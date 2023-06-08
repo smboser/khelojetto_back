@@ -2,8 +2,8 @@ import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { User } from './users.entity';
-import { UsersDTO } from './users.dto';
+import { User } from '../users/users.entity';
+import { UsersDTO } from '../users/users.dto';
 
 @Injectable()
 export class UsersService {
@@ -35,33 +35,30 @@ export class UsersService {
         'mobile',
         'usertype',
         'user_status',
-		'revenue',
-		'type',
+        'revenue',
+        'type',
         'sto_id',
-		'ag_id',
-		'joker_a',
-		'tripple_a',
-		'single_a',
-		'double_a',
-		'joker_p',
-		'tripple_p',
-		'single_p',
-		'double_p',
-		'update_player_revenue',
-		'update_agents_revenue'
-		
+        'ag_id',
+        'joker_a',
+        'tripple_a',
+        'single_a',
+        'double_a',
+        'joker_p',
+        'tripple_p',
+        'single_p',
+        'double_p',
+        'update_player_revenue',
+        'update_agents_revenue',
       ],
     });
   }
-  
+
   async getBalanceById(id: number): Promise<UsersDTO> {
     return await this.usersRepository.findOne({
       where: {
         user_id: id,
       },
-      select: [
-        'balance'
-      ],
+      select: ['balance'],
     });
   }
 
@@ -78,12 +75,12 @@ export class UsersService {
       },
     });
   }
-  
+
   async GetAgentbyStokesId(stokesId: number) {
     return await this.usersRepository.find({
       where: {
         sto_id: stokesId,
-		usertype:2
+        usertype: 2,
       },
     });
   }

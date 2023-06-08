@@ -4,12 +4,15 @@ import { Repository } from 'typeorm';
 
 import { Point } from './points.entity';
 import { PointsDTO } from './points.dto';
+import { User } from '../users/users.entity';
+import { UsersDTO } from '../users/users.dto';
 
 @Injectable()
 export class PointsService {
   constructor(
     @InjectRepository(Point)
     private pointsRepository: Repository<Point>,
+    private usersRepository: Repository<User>,
   ) {}
 
   async getAll() {
@@ -21,6 +24,14 @@ export class PointsService {
   async create(data: PointsDTO) {
     const point = this.pointsRepository.create(data);
     await this.pointsRepository.save(data);
+    await this.usersRepository
+      .createQueryBuilder()
+      .update(User)
+      .set({
+        balance: () => 'balance + data.amount',
+      })
+      .where('id = :id', { id: data.to_id })
+      .execute();
     return point;
   }
 

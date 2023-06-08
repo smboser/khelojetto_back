@@ -37,16 +37,20 @@ export class UsersController {
   async GetAllbyType(@Param('id', ParseIntPipe) id: number): Promise<User[]> {
     return this.usersService.getAllByType(id);
   }
-  
+
   @UseGuards(JwtAuthGuard)
   @Get('balance/:id')
-  async GetBalanceById(@Param('id', ParseIntPipe) id: number): Promise<UsersDTO> {
+  async GetBalanceById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<UsersDTO> {
     return this.usersService.getBalanceById(id);
   }
-  
+
   @UseGuards(JwtAuthGuard)
   @Get('stokes/:id')
-  async GetAgentbyStokesId(@Param('id', ParseIntPipe) id: number): Promise<User[]> {
+  async GetAgentbyStokesId(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<User[]> {
     return this.usersService.GetAgentbyStokesId(id);
   }
 
@@ -54,7 +58,6 @@ export class UsersController {
   @Post('add')
   async create(@Body() user: UsersDTO): Promise<User> {
     return this.usersService.create(user);
-	
   }
 
   @Patch(':id')
