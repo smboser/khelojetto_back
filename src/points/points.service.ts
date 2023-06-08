@@ -5,13 +5,14 @@ import { Repository } from 'typeorm';
 import { Point } from './points.entity';
 import { PointsDTO } from './points.dto';
 import { User } from '../users/users.entity';
-import { UsersDTO } from '../users/users.dto';
+//import { UsersDTO } from '../users/users.dto';
 
 @Injectable()
 export class PointsService {
   constructor(
     @InjectRepository(Point)
     private pointsRepository: Repository<Point>,
+    @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
 
