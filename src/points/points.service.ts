@@ -24,12 +24,13 @@ export class PointsService {
 
   async create(data: PointsDTO) {
     const point = this.pointsRepository.create(data);
+    let val = data.amount;
     await this.pointsRepository.save(data);
     await this.usersRepository
       .createQueryBuilder()
       .update(User)
       .set({
-        balance: () => 'balance + data.amount',
+        balance: () => `balance + ${data.amount}`,
       })
       .where('user_id = :user_id', { user_id: data.to_id })
       .execute();
