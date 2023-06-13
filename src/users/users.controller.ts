@@ -39,6 +39,14 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('balance/:id')
+  async GetBalanceById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<UsersDTO> {
+    return this.usersService.getBalanceById(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('stokes/:id')
   async GetAgentbyStokesId(
     @Param('id', ParseIntPipe) id: number,

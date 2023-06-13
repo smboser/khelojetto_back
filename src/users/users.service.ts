@@ -2,8 +2,8 @@ import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { User } from './users.entity';
-import { UsersDTO } from './users.dto';
+import { User } from '../users/users.entity';
+import { UsersDTO } from '../users/users.dto';
 
 @Injectable()
 export class UsersService {
@@ -50,6 +50,15 @@ export class UsersService {
         'update_player_revenue',
         'update_agents_revenue',
       ],
+    });
+  }
+
+  async getBalanceById(id: number): Promise<UsersDTO> {
+    return await this.usersRepository.findOne({
+      where: {
+        user_id: id,
+      },
+      select: ['balance'],
     });
   }
 

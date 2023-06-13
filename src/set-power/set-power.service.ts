@@ -30,6 +30,15 @@ export class SetPowerService {
     });
   }
 
+  async getOneRandom(): Promise<SetPowerDTO> {
+    const randomUser = await this.setpowerRepository
+      .createQueryBuilder('set_power')
+      .select()
+      .orderBy('RANDOM()')
+      .getOne();
+	 return randomUser;
+  }
+
   async read(id: number) {
     return await this.setpowerRepository.findOne({ where: { id: id } });
   }
