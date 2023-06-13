@@ -22,12 +22,17 @@ export class SetPowerController {
     return this.setPowerService.getAll();
   }
 
+  @Get('gameid')
+  async GetGameByRandom(): Promise<SetPower> {
+    return this.setPowerService.getOneRandom();
+  }
+
   @Get(':id')
   async GetOne(@Param('id', ParseIntPipe) id: number): Promise<SetPower> {
     return this.setPowerService.getOneById(id);
   }
 
-  @Post()
+  @Post('add')
   async create(@Body() setpower: SetPowerDTO): Promise<SetPower> {
     return this.setPowerService.create(setpower);
   }
