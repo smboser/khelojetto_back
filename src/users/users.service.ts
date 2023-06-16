@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { User } from '../users/users.entity';
 import { UsersDTO } from '../users/users.dto';
-
+import jwtDecode from 'jwt-decode';
 @Injectable()
 export class UsersService {
   constructor(
@@ -93,12 +93,47 @@ export class UsersService {
     });
   }
 
-  async getAllByType(typeId: number) {
-    return await this.usersRepository.find({
-      where: {
-        usertype: typeId,
-      },
-    });
+ async getAllByType(typeId: number,tokenPayload:string) {
+    
+	let decodedTokenPayload : any= jwtDecode(tokenPayload);
+	if(typeId===3){
+	  const pointsArr = await this.usersRepository.createQueryBuilder().select(`users1.user_id as user_id,users1.username as username,users1.name as name ,users1.sto_id as sto_id ,users1.revenue as revenue,users1.type as type,users1.balance as balance, users2.name as stoName,users3.name as agName`)
+.from("users", "users1")
+.leftJoin(User, 'users2', 'users1.sto_id = users2.user_id')
+.leftJoin(User, 'users3', 'users1.ag_id = users3.user_id')
+.where("users1.usertype = :usertype", { usertype: typeId })	
+.groupBy("users1.user_id")
+.getRawMany(); 
+console.log("PLAYER="+pointsArr);
+     return pointsArr;             
+}
+if(typeId===2){
+
+  const pointsArr = await this.usersRepository.createQueryBuilder().select(`users1.user_id as user_id,users1.username as username,users1.name as name ,users1.sto_id as sto_id ,users1.revenue as revenue,users1.type as type,users1.balance as balance,users2.name as frmName`)
+.from("users", "users1")
+.innerJoin(User, 'users2', 'users1.sto_id = users2.user_id')
+.where("users1.usertype = :usertype", { usertype: typeId })	
+.groupBy("users1.user_id")
+.getRawMany(); 
+console.log("AGENT="+pointsArr);
+     return pointsArr;             
+
+}
+
+if(typeId===1){
+
+  const pointsArr = await this.usersRepository.createQueryBuilder().select(`users1.user_id as user_id,users1.username as username,users1.name as name ,users1.sto_id as sto_id ,users1.revenue as revenue,users1.type as type,users1.balance as balance,users2.name as frmName`)
+.from("users", "users1")
+.innerJoin(User, 'users2', 'users1.sto_id = 0')
+.where("users1.usertype = :usertype", { usertype: typeId })	
+.groupBy("users1.user_id")
+.getRawMany(); 
+console.log("AGENT="+pointsArr);
+     return pointsArr;             
+
+}		
+
+
   }
 
   async read(id: number) {

@@ -9,6 +9,7 @@ import {
   UsePipes,
   ValidationPipe,
   Patch,
+  Query, 
   UseGuards,
 } from '@nestjs/common';
 import { Point } from './points.entity';
@@ -21,8 +22,8 @@ export class PointsController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async GetAll(): Promise<Point[]> {
-    return this.pointsService.getAll();
+  async GetAll(@Query('name') name: string): Promise<Point[]> {
+    return this.pointsService.getAll(name);
   }
 
   @Get(':id')
