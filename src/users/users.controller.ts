@@ -33,9 +33,9 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('type/:id')
-  async GetAllbyType(@Param('id', ParseIntPipe) id: number): Promise<User[]> {
-    return this.usersService.getAllByType(id);
+  @Get('type/:id/:tokenPayload')
+  async GetAllbyType(@Param('id', ParseIntPipe) id: number,@Param('tokenPayload') tokenPayload: string): Promise<User[]> {
+    return this.usersService.getAllByType(id,tokenPayload);
   }
 
   @UseGuards(JwtAuthGuard)
